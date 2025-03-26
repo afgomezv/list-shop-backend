@@ -7,7 +7,7 @@ export class ListController {
     try {
       const list = await List.create(req.body);
       await list.save();
-      io.emit("Lista creada correctamente");
+      io.emit("list:created", list);
       res.status(201).json({ message: "Lista creada correctamente" });
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -34,7 +34,7 @@ export class ListController {
   static updateList = async (req: Request, res: Response) => {
     try {
       await req.list.update(req.body);
-      io.emit("Lista actualizada correctamente");
+      io.emit("list:updated", req.list);
       res.status(200).json({ message: "Lista actualizada correctamente" });
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -44,7 +44,7 @@ export class ListController {
   static deleteList = async (req: Request, res: Response) => {
     try {
       await req.list.destroy();
-      io.emit("Lista eliminada correctamente");
+      io.emit("list:deleted", req.list.id);
       res.status(200).json({ message: "Lista eliminada correctamente" });
     } catch (error) {
       res.status(500).json({ error: error.message });

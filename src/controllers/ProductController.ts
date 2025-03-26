@@ -1,0 +1,47 @@
+import type { Request, Response } from "express";
+import Product from "../models/Product";
+import { io } from "../server";
+
+export class ProductController {
+  static createProduct = async (req: Request, res: Response) => {
+    try {
+      const product = await Product.create(req.body);
+      product.listId = req.list.id;
+      await product.save();
+      io.emit("product:created", product);
+      res.status(201).json({ mesagge: "Producto creado correctamente" });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
+
+  static getAllProducts = async (req: Request, res: Response) => {};
+
+  static getProductById = async (req: Request, res: Response) => {
+    try {
+      res.status(200).json(req.product);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
+
+  static updateProduct = async (req: Request, res: Response) => {
+    try {
+      await req.product.update(req.body);
+      io.emit("product:updated", req.product);
+      res.status(200).json({ message: "Producto actualizado correctamente" });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
+
+  static deleteProduct = async (req: Request, res: Response) => {
+    try {
+      await req.product.destroy();
+      io.emit("product:deleted", req.product);
+      res.status(200).json({ message: "Producto eliminado correctamente" });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
+}
