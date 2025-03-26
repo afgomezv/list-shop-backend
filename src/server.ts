@@ -4,7 +4,8 @@ import morgan from "morgan";
 import { createServer } from "http";
 import { Server as SocketIOServer } from "socket.io";
 import { db } from "./config/db";
-import listRouter from "./routes/ListRouter";
+import ListRouter from "./routes/ListRouter";
+import AuthRouter from "./routes/AuthRouter";
 
 export async function connectBD() {
   try {
@@ -33,6 +34,7 @@ io.on("connection", (socket) => {
 app.use(morgan("dev"));
 app.use(express.json());
 
-app.use("/api/lists", listRouter);
+app.use("/api/lists", ListRouter);
+app.use("/api/auth", AuthRouter);
 
 export { app, server, io };

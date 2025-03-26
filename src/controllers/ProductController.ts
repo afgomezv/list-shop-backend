@@ -15,8 +15,6 @@ export class ProductController {
     }
   };
 
-  static getAllProducts = async (req: Request, res: Response) => {};
-
   static getProductById = async (req: Request, res: Response) => {
     try {
       res.status(200).json(req.product);

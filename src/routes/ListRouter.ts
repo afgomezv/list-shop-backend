@@ -9,8 +9,11 @@ import {
   validateProductId,
 } from "../middleware/product";
 import { validateProductInput } from "../middleware/validateProductInput";
+import { authenticate } from "../middleware/auth";
 
 const router = Router();
+
+router.use(authenticate);
 
 router.param("listId", validateListId);
 router.param("listId", validateListExists);
@@ -47,7 +50,6 @@ router.post(
   ProductController.createProduct
 );
 
-router.get("/:listId/products", ProductController.getAllProducts);
 router.get("/:listId/products/:productId", ProductController.getProductById);
 
 router.put(

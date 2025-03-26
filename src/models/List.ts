@@ -1,12 +1,15 @@
 import {
   AllowNull,
+  BelongsTo,
   Column,
   DataType,
+  ForeignKey,
   HasMany,
   Model,
   Table,
 } from "sequelize-typescript";
 import Product from "./Product";
+import User from "./User";
 
 @Table({
   tableName: "lists",
@@ -30,6 +33,12 @@ class List extends Model {
     onDelete: "CASCADE",
   })
   declare products: Product[];
+
+  @ForeignKey(() => User)
+  declare userId: number;
+
+  @BelongsTo(() => User)
+  declare user: User;
 }
 
 export default List;
