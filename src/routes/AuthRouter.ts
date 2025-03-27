@@ -5,6 +5,7 @@ import {
 } from "../middleware/validateUserInput";
 import { handleInputErrors } from "../middleware/handleInputErros";
 import { AuthController } from "../controllers/AuthController";
+import { authenticate } from "../middleware/auth";
 
 const router = Router();
 
@@ -21,5 +22,7 @@ router.post(
   handleInputErrors,
   AuthController.login
 );
+
+router.get("/user", authenticate, AuthController.user);
 
 export default router;
