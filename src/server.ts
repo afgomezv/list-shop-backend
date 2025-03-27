@@ -1,11 +1,13 @@
 import express from "express";
 import colors from "colors";
+import cors from "cors";
 import morgan from "morgan";
 import { createServer } from "http";
 import { Server as SocketIOServer } from "socket.io";
 import { db } from "./config/db";
 import ListRouter from "./routes/ListRouter";
 import AuthRouter from "./routes/AuthRouter";
+import { corsConfig } from "./config/cors";
 
 export async function connectBD() {
   try {
@@ -31,6 +33,7 @@ io.on("connection", (socket) => {
   });
 });
 
+app.use(cors(corsConfig));
 app.use(morgan("dev"));
 app.use(express.json());
 
