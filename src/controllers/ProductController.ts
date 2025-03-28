@@ -42,4 +42,24 @@ export class ProductController {
       res.status(500).json({ error: error.message });
     }
   };
+
+  static updateIsBuyProduct = async (req: Request, res: Response) => {
+    const { productId } = req.params;
+
+    try {
+      const product = await Product.findByPk(productId);
+
+      if (!product) {
+        res.status(404).json({ message: "Product not found" });
+        return;
+      }
+
+      product.isBuy = !product.isBuy;
+      await product.save();
+      io.emit("product:updated", product);
+      res.status(200).json({ message: "Producto actualizado correctamente" });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
 }

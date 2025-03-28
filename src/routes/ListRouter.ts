@@ -60,5 +60,9 @@ router.put(
 );
 
 router.delete("/:listId/products/:productId", ProductController.deleteProduct);
+router.patch(
+  "/:listId/products/:productId/isbuy",
+  ProductController.updateIsBuyProduct
+);
 
 export default router;
