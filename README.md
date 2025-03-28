@@ -21,7 +21,7 @@ Este es el backend de la aplicación web para gestionar listas de compras en tie
 ### 1️⃣ Clonar el repositorio
 ```sh
   git clone https://github.com/afgomezv/list-shop-backend.git
-  cd lista-list-chop
+  cd lista-list-shop-backend
 ```
 ### 2️⃣ Instalar dependencias
 ```sh
