@@ -23,6 +23,9 @@ class Product extends Model {
   @AllowNull(false)
   @Column({
     type: DataType.DECIMAL(10, 2),
+    get() {
+      return parseFloat(this.getDataValue("price"));
+    },
   })
   declare price: number;
 
